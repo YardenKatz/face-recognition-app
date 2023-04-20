@@ -3,60 +3,40 @@ import React, { Component } from 'react'
 import ParticlesBg from 'particles-bg';
 
 import './App.css';
+import clarifaiRequestOptions from './config/ClarifaiConfig';
 import Navigation from './components/Navigation/Navigation';
 import Logo from './components/Logo/Logo';
 import Rank from './components/Rank/Rank';
 import ImageLinkForm from './components/ImageLinkForm/ImageLinkForm';
 import FaceRecognition from './components/FaceRecognition/FaceRecognition';
 
-
-const clarifaiRequestOptions = (imageUrl) => {
-	// Your PAT (Personal Access Token) can be found in the portal under Authentification
-    const PAT = ENTER YOUR PAT HERE;
-    const USER_ID = 'eza36f2gyx3k';       
-    const APP_ID = 'my-first-application';
-    const MODEL_ID = 'face-detection';   
-    const IMAGE_URL = imageUrl;
-
-    const raw = JSON.stringify({
-        "user_app_id": {
-            "user_id": USER_ID,
-            "app_id": APP_ID
-        },
-        "inputs": [
-            {
-                "data": {
-                    "image": {
-                        "url": IMAGE_URL
-                    }
-                }
-            }
-        ]
-    });
-
-    const requestOptions = {
-        method: 'POST',
-        headers: {
-            'Accept': 'application/json',
-            'Authorization': 'Key ' + PAT
-        },
-        body: raw
-    };
-
-	return  {
-		modelId: MODEL_ID,
-		requestOptions: requestOptions
-	}
-}
-
-
 class App extends Component {
 	constructor() {
 		super()
 		this.state = {
 			input: '',
-			imageUrl: ''
+			imageUrl: '',
+			box: {},
 		}
+	}
+
+	calculateFaceLocation = (data) => {
+		const clarifyFace = data.outputs[0].data.regions[0].region_info.bounding_box
+		const image = document.getElementById('inputimage')
+		const width = Number(image.width)
+		const height = Number(image.height)
+		
+		return {
+			leftCol: clarifyFace.left_col * width,
+			topRow: clarifyFace.top_row * height,
+			rightCol: width - clarifyFace.right_col * width,
+			bottomRow: height - clarifyFace.bottom_row * height
+		}
+	}
+
+	displayFaceBox = (box) => {
+		console.log(box)
+		this.setState( { box: box })
 	}
 
 	onInputChange = (event) => {
@@ -70,7 +50,9 @@ class App extends Component {
 
 		fetch("https://api.clarifai.com/v2/models/" + options.modelId + "/outputs", options.requestOptions)
         .then(response => response.json())
-		.then(console.log)
+		.then(response => this.displayFaceBox(this.calculateFaceLocation(response)))
+		.catch(err => console.log(err))
+		// .then(response => console.log())
 	}
 
 	render() {	
@@ -84,7 +66,7 @@ class App extends Component {
 					onInputChange={ this.onInputChange } 
 					onButtonSubmit={ this.onButtonSubmit } 
 				/>
-			 	<FaceRecognition imageUrl={ this.state.imageUrl } />
+			 	<FaceRecognition box={ this.state.box } imageUrl={ this.state.imageUrl } />
 			</div>
 		);
 		}
