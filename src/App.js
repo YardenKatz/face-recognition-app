@@ -20,9 +20,26 @@ class App extends Component {
 			imageUrl: '',
 			box: {},
 			route: 'signin',
-			isSignedIn: false
+			isSignedIn: false,
+			user: {
+				id: '',
+				name: '',
+				email: '',
+				entries: 0,
+				joined: ''
+			}
 		}
 	}
+
+	loadUser = (data) => {
+		this.setState( { user: {
+			id: data.id,
+			name: data.name,
+			email: data.email,
+			entries: data.entries,
+			joined: data.joined
+		}})
+	}   
 
 	calculateFaceLocation = (data) => {
 		const clarifyFace = data.outputs[0].data.regions[0].region_info.bounding_box
@@ -69,7 +86,7 @@ class App extends Component {
 	}
 
 	render() {	
-		const { isSignedIn, route, box, imageUrl } = this.state
+		const { isSignedIn, route, box, imageUrl, user } = this.state
 		return (
 			<div className="App">
 				<ParticlesBg type="cobweb" bg={true} />
@@ -77,7 +94,7 @@ class App extends Component {
 				{ route === 'home' ?
 					<div> 
 						<Logo />
-						<Rank />
+						<Rank name={user.name} entries={user.entries}/>
 						<ImageLinkForm 
 							onInputChange={ this.onInputChange } 
 							onButtonSubmit={ this.onButtonSubmit } 
@@ -85,10 +102,9 @@ class App extends Component {
 						<FaceRecognition box={ box } imageUrl={ imageUrl } />
 				  	</div> :	
 				  route === 'signin'  ?
-					<Signin onRouteChange={this.onRouteChange}/> :
-					<Register onRouteChange={this.onRouteChange}/>
+					<Signin loadUser = {this.loadUser} onRouteChange={this.onRouteChange}/> :
+					<Register loadUser = {this.loadUser} onRouteChange={this.onRouteChange}/>
 				} 
-				)
 			</div>
 		);
 		}
