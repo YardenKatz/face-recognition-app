@@ -3,7 +3,7 @@ import React, { Component } from 'react'
 import ParticlesBg from 'particles-bg';
 
 import './App.css';
-import clarifaiRequestOptions from './config/ClarifaiConfig';
+
 import Navigation from './components/Navigation/Navigation';
 import Logo from './components/Logo/Logo';
 import Rank from './components/Rank/Rank';
@@ -78,9 +78,14 @@ class App extends Component {
 	onPictureSubmit = () => {
 		const imageUrl = this.state.input 
 		this.setState({ imageUrl: imageUrl })
-		const options = clarifaiRequestOptions(imageUrl)
 
-		fetch("https://api.clarifai.com/v2/models/" + options.modelId + "/outputs", options.requestOptions)
+		fetch('http://localhost:3000/imageurl', {
+						method: 'post',
+						headers: { 'Content-Type': 'application/json' },
+						body: JSON.stringify({
+							imageUrl: imageUrl
+						})
+					})
 			.then(response => response.json())
 			.then(response => {
 				if (response) {
