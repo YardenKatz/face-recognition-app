@@ -11,7 +11,7 @@ import ImageLinkForm from './src/components/ImageLinkForm/ImageLinkForm';
 import FaceRecognition from './src/components/FaceRecognition/FaceRecognition';
 import Signin from './src/components/Signin/Signin';
 import Register from './src/components/Register/Register';
-import host from './src/config.js';
+import host from './config.js';
 
 const initialState = {
 	input: '',
