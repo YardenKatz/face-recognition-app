@@ -4,8 +4,8 @@ import ParticlesBg from 'particles-bg';
 
 import './App.css';
 
-import Navigation from './Navigation';
-import Logo from './src/components/Logo/Logo';
+import Navigation from './components/Navigation/Navigation';
+import Logo from './components/Logo/Logo';
 import Rank from './components/Rank/Rank';
 import ImageLinkForm from './components/ImageLinkForm/ImageLinkForm';
 import FaceRecognition from './components/FaceRecognition/FaceRecognition';
