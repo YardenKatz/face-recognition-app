@@ -25,8 +25,8 @@ class Register extends React.Component {
 
 	onSubmitRegister = () => {
 		const {loadUser, onRouteChange} = this.props
-
-		fetch(host + '/register', {
+		const url = host + '/register';
+		fetch(url, {
 			method: 'post',
 			headers: { 'Content-Type': 'application/json'},
 			body: JSON.stringify( {
