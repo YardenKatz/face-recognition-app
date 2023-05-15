@@ -4,7 +4,7 @@ import ParticlesBg from 'particles-bg';
 
 import './App.css';
 
-import Navigation from './src/components/Navigation/Navigation';
+import Navigation from './components/Navigation/Navigation';
 import Logo from './src/components/Logo/Logo';
 import Rank from './src/components/Rank/Rank';
 import ImageLinkForm from './src/components/ImageLinkForm/ImageLinkForm';
