@@ -13,6 +13,8 @@ import Signin from './components/Signin/Signin';
 import Register from './components/Register/Register';
 import host from './config.js';
 
+console.log('host: ', host)
+
 const initialState = {
 	input: '',
 	imageUrl: '',
