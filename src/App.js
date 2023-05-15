@@ -11,8 +11,9 @@ import ImageLinkForm from './components/ImageLinkForm/ImageLinkForm';
 import FaceRecognition from './components/FaceRecognition/FaceRecognition';
 import Signin from './components/Signin/Signin';
 import Register from './components/Register/Register';
-import host from './config.js';
+// import host from './config.js';
 
+const host = 'https://face-recognition-app-api.onrender.com'
 
 const initialState = {
 	input: '',
