@@ -1,4 +1,5 @@
 import React from 'react'
+import host from '../../config';
 
 class Signin extends React.Component {
 
@@ -11,7 +12,7 @@ class Signin extends React.Component {
 	}
 
 	onSubmitSignIn = () => {
-		fetch('http://localhost:3000/signin', {
+		fetch(host + '/signin', {
 			method: 'post',
 			headers: { 'Content-Type': 'application/json'},
 			body: JSON.stringify( {
@@ -26,6 +27,7 @@ class Signin extends React.Component {
 				this.props.onRouteChange('home')
 			}
 		})
+		.catch(console.log)
 	}
 
 	onEmailChange = (event) => {

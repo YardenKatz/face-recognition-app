@@ -11,6 +11,7 @@ import ImageLinkForm from './components/ImageLinkForm/ImageLinkForm';
 import FaceRecognition from './components/FaceRecognition/FaceRecognition';
 import Signin from './components/Signin/Signin';
 import Register from './components/Register/Register';
+import host from 'config.js';
 
 const initialState = {
 	input: '',
@@ -79,7 +80,7 @@ class App extends Component {
 		const imageUrl = this.state.input 
 		this.setState({ imageUrl: imageUrl })
 
-		fetch('http://localhost:3000/imageurl', {
+		fetch(host + '/imageurl', {
 						method: 'post',
 						headers: { 'Content-Type': 'application/json' },
 						body: JSON.stringify({
@@ -89,7 +90,7 @@ class App extends Component {
 			.then(response => response.json())
 			.then(response => {
 				if (response) {
-					fetch('http://localhost:3000/image', {
+					fetch(host + '/image', {
 						method: 'put',
 						headers: { 'Content-Type': 'application/json' },
 						body: JSON.stringify({
