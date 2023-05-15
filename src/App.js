@@ -5,12 +5,12 @@ import ParticlesBg from 'particles-bg';
 import './App.css';
 
 import Navigation from './components/Navigation/Navigation';
-import Logo from './src/components/Logo/Logo';
-import Rank from './src/components/Rank/Rank';
-import ImageLinkForm from './src/components/ImageLinkForm/ImageLinkForm';
-import FaceRecognition from './src/components/FaceRecognition/FaceRecognition';
-import Signin from './src/components/Signin/Signin';
-import Register from './src/components/Register/Register';
+import Logo from './components/Logo/Logo';
+import Rank from './components/Rank/Rank';
+import ImageLinkForm from './components/ImageLinkForm/ImageLinkForm';
+import FaceRecognition from './components/FaceRecognition/FaceRecognition';
+import Signin from './components/Signin/Signin';
+import Register from './components/Register/Register';
 import host from './config.js';
 
 const initialState = {
